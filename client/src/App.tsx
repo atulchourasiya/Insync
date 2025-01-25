@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import AppRoutes from "./AppRoutes";
+import Loadingscreen from "./components/ui/loadingscreen/Loadingscreen";
+import { RootState } from "../src/app/store";
+import { useSelector } from "react-redux";
 
+const App = () => {
+  const loading = useSelector((state: RootState) => state.loading).isLoading;
 
-function App() {
   return (
-    <div className='bg-slate-400'>
-      hello world
+    <div className='w-screen h-screen   position-relative'>
+      {loading ? <Loadingscreen /> : <AppRoutes />}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

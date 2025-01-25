@@ -1,0 +1,30 @@
+/* Customize the Quill editor container */
+.ql-container {
+  border: none !important;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+/* Customize the Quill editor toolbar */
+.ql-toolbar {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0%;
+  background-color: hsl(var(--sidebar-background));
+  z-index: var(--high-z-index);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* Customize the Quill editor content */
+.ql-editor {
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-all; 
+  overflow-wrap: break-word; 
+  white-space: normal;
+}
