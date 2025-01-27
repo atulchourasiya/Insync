@@ -7,7 +7,7 @@ const App = () => {
   const loading = useSelector((state: RootState) => state.loading).isLoading;
 
   return (
-    <div className='w-screen h-screen   position-relative'>
+    <div className='w-screen h-screen overflow-hidden position-relative'>
       {loading ? <Loadingscreen /> : <AppRoutes />}
     </div>
   );

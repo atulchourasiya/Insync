@@ -1,15 +1,14 @@
 import axios from "axios";
-import { ApiEndpoint } from "./apiEndPoint";
+import { apiEndPoint, ApiEndpoint } from "./apiEndPoint";
 
 // Create an axios instance
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true, 
+  withCredentials: true,
 });
 // Add a response interceptor
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response);
     if (response.status === 200 && response.data.redirect_url) {
       const location = response.data.redirect_url;
       if (location) {
@@ -18,8 +17,22 @@ axiosInstance.interceptors.response.use(
     }
     return response;
   },
-  (error) => {
-    return Promise.reject(error);
+  async (error) => {
+    const originalRequest = error.config;
+    if(error.response?.status === 401 && originalRequest.url === "auth/refresh_token") {
+      alert("Session expired. Please login again.");
+    }
+    else if (error.response?.status === 401) {
+      originalRequest._retry = true;
+      try {
+        await apiRequestController(apiEndPoint.refreshToken);
+        alert("Token refreshed");
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        console.error("Token refresh failed:", refreshError);
+        return Promise.reject(refreshError);
+      }
+    }
   }
 );
 

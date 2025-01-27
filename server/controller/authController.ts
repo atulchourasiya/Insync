@@ -123,10 +123,25 @@ export const generateAccessToken = asyncErrorHandler(
     }
 
     const user_access_token = user.generateAccessToken();
-    res.cookie("token", user_access_token, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: true,
-    }).send();
+    res
+      .cookie("token", user_access_token, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: true,
+      })
+      .send();
+  }
+);
+
+export const getUser = asyncErrorHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const _id = req.user;
+    const user = await User.findById({ _id });
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+    const { email, name, picture, role, status } = user;
+    res.json({ email, name, picture, role, status });
   }
 );

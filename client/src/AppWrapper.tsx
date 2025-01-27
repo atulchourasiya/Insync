@@ -4,7 +4,7 @@ import { ComponentType } from "react";
 const AppWrapper = function (Component: ComponentType) {
   return function () {
     return (
-      <div>
+      <div className="flex flex-col h-dvh w-dvw">
         <Navbar />
         <Component />
       </div>

@@ -6,7 +6,6 @@ import { connectDatabase } from "../database/config";
 import cors from "cors";
 import { Request, Response } from "express";
 import cookieParser from "cookie-parser";
-import  isAuthenticate  from "../middleware/isAuthenticate";
 import http from "http";
 import { Server, Socket } from "socket.io";
 import Document from "../model/document";
@@ -54,7 +53,6 @@ io.on("connection", (socket: Socket) => {
   });
 });
 
-
 app.use(cookieParser());
 app.use(
   cors({
@@ -66,7 +64,7 @@ app.use(
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/auth", authRoute);
-app.get("/ping", isAuthenticate, (req: Request, res: Response) => {
+app.get("/ping", (req: Request, res: Response) => {
   res.json({ pong: true });
 });
 

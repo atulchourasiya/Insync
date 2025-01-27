@@ -12,7 +12,7 @@ const isAuthenticate = asyncErrorHandler(
     }
     try {
       const user = verifyJWT(token);
-      req.user = user;
+      req.user = user.id;
       next();
     } catch (error) {
       res.status(401).send("Unauthorized request");

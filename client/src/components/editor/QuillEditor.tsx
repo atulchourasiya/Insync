@@ -41,6 +41,7 @@ const QuillEditor = () => {
   }, []);
 
   useEffect(() => {
+    editorRef.current?.click();
     // Connect to the document room
     socket.emit("join-document", documentId);
 
@@ -63,8 +64,8 @@ const QuillEditor = () => {
   }, [content, documentId]);
 
   return (
-    <div className="flex-grow basis-[0]">
-      <div  ref={editorRef} />
+    <div className='flex flex-col h-full w-full p-2 flex-grow-1'>
+      <div ref={editorRef} />
     </div>
   );
 };

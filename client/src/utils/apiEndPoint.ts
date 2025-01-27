@@ -17,4 +17,8 @@ export const apiEndPoint: Record<string, ApiEndpoint> = {
     url : 'ping',
     method : 'GET',
   },
+  getUser : {
+    url : 'auth/get_user',
+    method : 'POST',
+  },
 } as const;
